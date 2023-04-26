@@ -11,9 +11,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const photos = []
 
-  //Breakpoints for Masonry Grid
-  const breakpoints = {default: 3}
-
   const updateKeyword = (word) => {
     console.log(word.length)
     if (word.length > 0) {
@@ -22,18 +19,19 @@ function App() {
     }
   }
 
-  const fetchUserData = () => {
-    fetch(`https://api.unsplash.com/search/photos?page=1&query=${keyword}&client_id=uF33xlOLU27xtHXbA-Sgp7A3XCE7GvnNUv8Bh3oK1RQ&per_page=50&orientation=portrait`)
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        setData(data.results)
-        setIsLoading(false)
-      })
-  }
+  
 
   useEffect(() => {
+    const fetchUserData = () => {
+      fetch(`https://api.unsplash.com/search/photos?page=1&query=${keyword}&client_id=uF33xlOLU27xtHXbA-Sgp7A3XCE7GvnNUv8Bh3oK1RQ&per_page=50&orientation=portrait`)
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          setData(data.results)
+          setIsLoading(false)
+        })
+    }
     fetchUserData()
   }, [keyword])
   
