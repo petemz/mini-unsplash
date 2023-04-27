@@ -13,7 +13,7 @@ export function resHeights (index) {
 export function DispPhoto ({photo, height, onClick}) {
     return(
         <div onClick={() => onClick(true)}  key={photo.id}
-            className={`${height} xxs:w-[125px] xs:w-[150px] sm:w-[170px] md:w-[200px] md:h-100px max-w-[261px] overflow-hidden relative rounded-lg transition-all ease-in-out hover:scale-105 shadow-[0px_4px_30px_rgba(0,0,0,0.18)] cursor-zoom-in`}
+            className={`${height} bg-neutral-200 xxs:w-[125px] xs:w-[150px] sm:w-[170px] md:w-[200px] md:h-100px max-w-[261px] overflow-hidden relative rounded-lg transition-all ease-in-out hover:scale-105 shadow-[0px_4px_30px_rgba(0,0,0,0.18)] cursor-zoom-in`}
         >
             <img src={photo.urls.regular} alt={photo.alt_description} className='h-full w-full object-cover' />
             <div className='absolute h-10 z-10 xxs:left-2 xxs:pr-2 sm:left-3 left-5 xs:bottom-2 sm:bottom-4 bottom-6 text-white'>

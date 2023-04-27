@@ -1,7 +1,7 @@
 import Masonry from 'react-masonry-css'
-import SearchBar from "./SearchBar"
+import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import SearchBar from "./SearchBar"
 import { DispPhoto, Placeholder } from './photoItem'
 import Modal from './imgModal'
 
@@ -33,6 +33,22 @@ function Home({ isLoading, photos, updateKeyword, resHeights}) {
     //Breakpoints for Masonry Grid
     const breakpoints = {default: 3}
 
+    const ref = useRef()
+  
+    useEffect(() => {
+      const checkIfClickedOutside = (e) => {
+        if (overlay && ref.current && !ref.current.contains(e.target)) {
+          setOverlay(false)
+        }
+      }
+
+      document.addEventListener("mousedown", checkIfClickedOutside)
+  
+      return () => {
+        document.removeEventListener("mousedown", checkIfClickedOutside)
+      }
+    }, [overlay])
+
     return (
         <div className={`h-screen overflow-x-hidden ${overlay && 'overflow-none'}`}>
             <div className='relative flex justify-center '>
@@ -62,7 +78,7 @@ function Home({ isLoading, photos, updateKeyword, resHeights}) {
                         <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
                     </svg>
                         
-                    <div className=' overflow-hidden rounded-lg bg-white z-20 absolute'>
+                    <div ref={ref} className=' overflow-hidden rounded-lg bg-white z-20 absolute'>
                         <Modal img={overlayPhoto}/>
                     </div>
                 </div>
