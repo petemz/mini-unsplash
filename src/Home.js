@@ -1,7 +1,7 @@
 import Masonry from 'react-masonry-css'
 import SearchBar from "./SearchBar"
 import { useNavigate } from 'react-router-dom'
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { DispPhoto, Placeholder } from './photoItem'
 import Modal from './imgModal'
 
@@ -33,17 +33,12 @@ function Home({ isLoading, photos, updateKeyword, resHeights}) {
     //Breakpoints for Masonry Grid
     const breakpoints = {default: 3}
 
-    const searchBoxRef = useRef(null)
-    useEffect(() => {
-        searchBoxRef.current.focus()
-    })
-
     return (
-        <div className={`h-screen ${overlay && 'overflow-none'}`}>
+        <div className={`h-screen overflow-x-hidden ${overlay && 'overflow-none'}`}>
             <div className='relative flex justify-center '>
                 <div className='absolute w-full top-0'>
                     <div className=' h-[313px] flex items-center bg-[#dde2e9] w-full'>
-                        <SearchBar searchRef={searchBoxRef} kop={searchBoxRef} change={updateKeyword} changePage={changePage}/>
+                        <SearchBar change={updateKeyword} changePage={changePage}/>
                     </div>
                 </div>
 

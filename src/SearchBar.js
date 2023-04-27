@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const SearchBar = ({ change, changePage, searchRef }) => {
+const SearchBar = ({ change, changePage }) => {
     const [searchText, setSearchText] = useState("")
     function handleChange(e) {
         setSearchText(e.target.value)
@@ -27,7 +27,6 @@ const SearchBar = ({ change, changePage, searchRef }) => {
                     {icon}
                 </button>
                 <input 
-                    ref={searchRef}
                     className="px-16 h-20 w-full  outline-none rounded-lg border-2"
                     value={searchText}
                     onChange={(e) => handleChange(e)}
