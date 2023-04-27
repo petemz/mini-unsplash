@@ -1,16 +1,12 @@
 const Modal = ({img}) => {
-    console.log(img)
     return (
-        <div className="h-screen overflow-hidden">
-            <img 
-                className="w-full "
-                src="https://images.unsplash.com/photo-1566051587526-f62c8a4522ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MzUzMjl8MHwxfHNlYXJjaHw2fHxhZnJpY2FufGVufDB8MXx8fDE2ODIzODk5MTc&ixlib=rb-4.0.3&q=80&w=1080"
-                alt="pop"/>
-            <div>
-                <p>Peter</p>
-                <p>Emmies</p>
+        <>
+            <img className='xs:max-w-[300px] max-w-[400px] ' src={img.urls.regular} alt={img.alt_description}/>
+            <div className='h-24 pb-2 px-10 flex flex-col justify-center text-blue-950'>
+                <p className='text-lg font-semibold'>{img.user.name}</p>
+                <p className='text-sm'>{img.user.location}</p>
             </div>
-        </div>
+        </>
     )
 }
 

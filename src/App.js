@@ -19,11 +19,9 @@ function App() {
     }
   }
 
-  
-
   useEffect(() => {
     const fetchUserData = () => {
-      fetch(`https://api.unsplash.com/search/photos?page=1&query=${keyword}&client_id=uF33xlOLU27xtHXbA-Sgp7A3XCE7GvnNUv8Bh3oK1RQ&per_page=50&orientation=portrait`)
+      fetch(`https://api.unsplash.com/search/photos?page=1&query=${keyword}&client_id=uF33xlOLU27xtHXbA-Sgp7A3XCE7GvnNUv8Bh3oK1RQ&per_page=6`)
         .then(response => {
           return response.json()
         })
@@ -35,24 +33,15 @@ function App() {
     fetchUserData()
   }, [keyword])
   
-  // height filter for the fetched photos in the data array
   for (let i=0; i < data.length; i++) {
-    if (data[i].height > 5000 && photos.length < 6) {
-      photos.push(data[i])
-    }
+    photos.length < 6 && photos.push(data[i])
   }
-
-  const holders = Array.from({length: 6}, (_, index) => {
-    return (
-      <Placeholder height={resHeights(index)}/>
-    )
-  })
 
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Home photos={photos} resHeights={resHeights} isLoading={isLoading} holders={holders} updateKeyword={updateKeyword} />} />
-        <Route path="/pro" element={<Results photos={photos} resHeights={resHeights} keyword={keyword} isLoading={isLoading} holders={holders} />} />
+        <Route exact path="/" element={<Home photos={photos} resHeights={resHeights} isLoading={isLoading} updateKeyword={updateKeyword} />} />
+        <Route path="/pro" element={<Results photos={photos} resHeights={resHeights} keyword={keyword} setKeyword={setKeyword} isLoading={isLoading} />} />
       </Routes>
     </>
   )
