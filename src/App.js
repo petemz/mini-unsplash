@@ -1,49 +1,47 @@
 import { useState, useEffect, useRef } from 'react'
-import { resHeights } from './photoItem'
+import { resHeights } from './photoFunctions'
 import Masonry from 'react-masonry-css'
 import SeachBar from './SearchBar'
-import { DispPhoto, Placeholder } from './photoItem'
+import { DispPhoto, Placeholder } from './photoFunctions'
 import Modal from './imgModal'
 
 function App() {
+  //Breakpoints for Masonry Grid
+  const breakpoints = {default: 3, 500: 2}
   const [keyword, setKeyword] = useState("african")
   const [data, setData] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
   const photos = []
+  const [isLoading, setIsLoading] = useState(true)
   const [home, setHome] = useState(true)
+  const [overlay, setOverlay] = useState(false)
+  const [overlayPhoto, setOverlayPhoto] = useState({})
+  const ref = useRef()
+  const searchText =  isLoading ? 'Searching for ' : 'Search Results for '
 
   const updateKeyword = (word) => {
-      if (word.length > 0) {
-          setKeyword(word)
-          setIsLoading(true)
-          setHome(false)
-      }
+    if (word.length > 0) {
+      setKeyword(word)
+      setIsLoading(true)
+      setHome(false)
+    }
   }
 
-  useEffect(() => {
-    const fetchUserData = () => {
-      fetch(`https://api.unsplash.com/search/photos?page=1&query=${keyword}&client_id=uF33xlOLU27xtHXbA-Sgp7A3XCE7GvnNUv8Bh3oK1RQ&per_page=6`)
-        .then(response => {
-          return response.json()
-        })
-        .then(data => {
-          setData(data.results)
-          setIsLoading(false)
-        })
-      }
-    fetchUserData()
-  }, [keyword])
+  const toUpperCase = (word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1)
+  }
   
   for (let i=0; i < data.length; i++) {
     photos.length < 6 && photos.push(data[i])
   }
   
-  const [overlay, setOverlay] = useState(false)
-  const [overlayPhoto, setOverlayPhoto] = useState({})
-
   const handleOverlay = (photo) => {
     setOverlay(true)
     setOverlayPhoto(photo)
+  }
+
+  const handleRedirect = () => {
+    window.scroll(0, 0)
+    setHome(true)
   }
   
   const resPhotos = photos.map((photo, index) => {
@@ -58,10 +56,19 @@ function App() {
     }
   })
 
-  //Breakpoints for Masonry Grid
-  const breakpoints = {default: 3}
-
-  const ref = useRef()
+  useEffect(() => {
+    const fetchUserData = () => {
+      fetch(`https://api.unsplash.com/search/photos?page=1&query=${keyword}&client_id=uF33xlOLU27xtHXbA-Sgp7A3XCE7GvnNUv8Bh3oK1RQ&per_page=6`)
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          setData(data.results)
+          setIsLoading(false)
+        })
+      }
+    fetchUserData()
+  }, [keyword])
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -76,17 +83,6 @@ function App() {
       document.removeEventListener("mousedown", checkIfClickedOutside)
     }
   }, [overlay])
-
-  const toUpperCase = (word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1)
-  }
-  const searchText =  isLoading ?
-    'Searching for ' : 'Search Results for '
-
-  const handleRedirect = () => {
-    window.scroll(0, 0)
-    setHome(true)
-  }
 
   return (
     <div className={`h-screen overflow-x-hidden ${overlay && 'overflow-none'}`}>
