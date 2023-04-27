@@ -1,8 +1,8 @@
 import { useState } from "react"
 
-const SearchBar = ({ change, changePage }) => {
+const SearchBar = ({ change }) => {
     const [searchText, setSearchText] = useState("")
-    function handleChange(e) {
+    function handleTextChange(e) {
         setSearchText(e.target.value)
     }
     const icon = true ? 
@@ -18,8 +18,7 @@ const SearchBar = ({ change, changePage }) => {
         <div className="mb-4 w-full h-15 flex justify-center lg:mb-0">
             <div className="sm:w-11/12 w-9/12 md:mx-10 mx-28 relative">
                 <button onClick={() =>{
-                    if (searchText.length > 0) { 
-                        changePage()
+                    if (searchText.length > 0) {
                         change(searchText)
                     }
                 }}
@@ -29,12 +28,11 @@ const SearchBar = ({ change, changePage }) => {
                 <input 
                     className="px-16 h-20 w-full  outline-none rounded-lg border-2"
                     value={searchText}
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleTextChange(e)}
                     placeholder={'Search Photos'}
                     onKeyPress={(e) => {
                         if (e.key === "Enter" & searchText.length > 0) {
                             change(searchText)
-                             changePage()
                         }
                     }}
                 />
@@ -43,4 +41,4 @@ const SearchBar = ({ change, changePage }) => {
     );
 }
   
-export default SearchBar;
+export default SearchBar

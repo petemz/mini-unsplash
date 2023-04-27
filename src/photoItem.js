@@ -20,7 +20,7 @@ export function DispPhoto ({photo, height, onClick}) {
                 <p className='sm:text-sm line-clamp-1'>{photo.user.name}</p>
                 <p className='sm:text-[10px] text-xs line-clamp-1'>{photo.user.location}</p>
             </div>
-            <div className='absolute top-0 z-0 bg-gradient-to-b from-transparent from-70% to-black h-full w-full opacity-90'>
+            <div className='absolute top-0 z-0 bg-gradient-to-b from-transparent from-60% to-black h-full w-full opacity-90'>
                 {/*dark overlay*/}
             </div>
         </div>
