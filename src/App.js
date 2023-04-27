@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { resHeights, Placeholder } from './photoItem'
+import { resHeights } from './photoItem'
 import { Routes, Route } from 'react-router-dom'
 import Home from './Home'
 import Results from './Results'
@@ -12,7 +12,6 @@ function App() {
   const photos = []
 
   const updateKeyword = (word) => {
-    console.log(word.length)
     if (word.length > 0) {
       setKeyword(word)
       setIsLoading(true)
